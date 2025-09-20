@@ -1,91 +1,87 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { close, logo, menu } from '../assets';
-import { navLinks } from '../constants';
-import { styles } from '../styles';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { close, logo, menu } from "../assets";
+import { navLinks } from "../constants";
+import { styles } from "../styles";
 
 const Navbar = () => {
-  const [active, setActive] = useState('');
   const [toggle, setToggle] = useState(false);
 
   const toggleResume = () => {
-    const resumeUrl = '/Resume.pdf';
+    const resumeUrl = "/Resume.pdf";
     window.open(resumeUrl);
   };
 
-  useEffect(() => {
-    if (toggle) {
-      setActive('');
-    }
-  }, [toggle]);
-
-  const renderNavLinks = (isSecondary) => (
-    <ul className={`list-none ${isSecondary ? 'flex sm:hidden' : 'hidden sm:flex'} flex-row gap-6`}>
-      {navLinks.map((link) => (
-        <li
-          key={link.id}
-          className={`${
-            active === link.title ? 'text-white' : isSecondary ? 'text-secondary' : 'text-white'
-          } hover:text-white text-[20px] font-medium cursor-pointer`}
-          onClick={() => {
-            setActive(link.title);
-            if (isSecondary) {
-              setToggle(false);
-            }
-          }}
-        >
-          <a href={`#${link.id}`}>{link.title}</a>
-        </li>
-      ))}
-      <li
-        className={`text-${
-          isSecondary ? 'secondary' : 'white'
-        } hover:text-white text-[20px] font-medium cursor-pointer`}
-      >
-        <button onClick={toggleResume}>Resume</button>
-      </li>
-    </ul>
-  );
-
   return (
-    <>
-      <nav
-        className={`${styles.paddingX} w-full flex items-center py-3 fixed top-0 z-20 bg-primary`}
+    <nav className="fixed top-0 left-0 w-full z-[100] bg-primary py-3 px-4 flex justify-between items-center shadow-md">
+      {/* Logo */}
+      <Link
+        to="/"
+        className="flex items-center gap-2"
+        onClick={() => window.scrollTo(0, 0)}
       >
-        <div className="w-full flex justify-between items-center max-w-7xl mx-auto">
-          <Link
-            to="/"
-            className="flex items-center gap-2"
-            onClick={() => {
-              setActive('');
-              window.scrollTo(0, 0);
-            }}
-          >
-            <img src={logo} alt="logo" className="w-9 h-9 object-contain" />
-            <p className="text-white text-[20px] font-bold cursor-pointer flex">
-              VISHAL&nbsp;
-              <span className="sm:block hidden">SANAP</span>
-            </p>
-          </Link>
-          {renderNavLinks(false)}
-          <div className="sm:hidden flex flex-1 justify-end items-center">
-            <img
-              src={toggle ? close : menu}
-              alt="menu"
-              className="w-[28px] h-[18px] object-contain cursor-pointer"
-              onClick={() => setToggle(!toggle)}
-            />
-            <div
-              className={`p-4 black-gradient absolute top-14 right-0 mx-2 my-2 min-w-[120px] z-10 rounded-xl foggy-glass ${
-                toggle ? 'flex' : 'hidden'
-              }`}
+        <img src={logo} alt="logo" className="w-9 h-9 object-contain" />
+        <p className="text-white text-[20px] font-bold cursor-pointer flex">
+          VISHAL <span className="sm:block hidden">&nbsp;SANAP</span>
+        </p>
+      </Link>
+
+      {/* Desktop Links */}
+      <ul className="hidden sm:flex gap-6 items-center">
+        {navLinks.map((link) => (
+          <li key={link.id}>
+            <a
+              href={`#${link.id}`}
+              className="text-white text-[20px] font-medium hover:text-secondary"
             >
-              {renderNavLinks(true)}
-            </div>
-          </div>
+              {link.title}
+            </a>
+          </li>
+        ))}
+        <li>
+          <button
+            onClick={toggleResume}
+            className="text-white text-[20px] font-medium hover:text-secondary"
+          >
+            Resume
+          </button>
+        </li>
+      </ul>
+
+      {/* Mobile Hamburger */}
+      <div className="sm:hidden relative z-[110]">
+        <img
+          src={toggle ? close : menu}
+          alt="menu"
+          className="w-8 h-8 object-contain cursor-pointer"
+          onClick={() => setToggle(!toggle)}
+        />
+
+        {/* Mobile Menu */}
+        <div
+          className={`fixed top-0 right-0 h-full w-64 bg-primary p-6 flex flex-col gap-6 shadow-lg transition-transform duration-300 ${
+            toggle ? "translate-x-0" : "translate-x-full"
+          }`}
+        >
+          {navLinks.map((link) => (
+            <a
+              key={link.id}
+              href={`#${link.id}`}
+              className="text-white text-[20px] font-medium hover:text-secondary"
+              onClick={() => setToggle(false)}
+            >
+              {link.title}
+            </a>
+          ))}
+          <button
+            onClick={toggleResume}
+            className="text-white text-[20px] font-medium hover:text-secondary mt-4"
+          >
+            Resume
+          </button>
         </div>
-      </nav>
-    </>
+      </div>
+    </nav>
   );
 };
 
