@@ -66,7 +66,7 @@ const Contact = () => {
         <p className={styles.sectionSubText}>Get in touch</p>
         <h3 className={styles.sectionHeadText}>Contact Me</h3>
 
-        <form ref={formRef} onSubmit={handleSubmit} className="mt-12 flex flex-col gap-8 w-full max-w-md mx-auto">
+        <form ref={formRef} onSubmit={handleSubmit} className="mt-8 flex flex-col gap-5 w-full max-w-md mx-auto">
           <InputField label="Your Name" name="name" value={form.name} onChange={handleChange} placeholder="Insert Your name here..." type="text" />
           {nameError && <span className="text-red-500">{nameError}</span>}
 
