@@ -13,8 +13,8 @@ const renderTechnologies = () => {
 
 const Tech = () => (
   <div className="flex flex-row flex-wrap justify-center gap-10">
-    {renderTechnologies()}
-  </div>
+  {renderTechnologies()}
+</div>
 );
 
 export default SectionWrapper(Tech, "");

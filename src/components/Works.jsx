@@ -64,13 +64,13 @@ const Works = () => {
           repositories in it.
         </motion.p>
       </div>
-      <div className="mt-20 flex flex-wrap gap-7">
-        {projects.map((project, index) => (
-          <ProjectCard key={`project-${index}`} {...project} />
-        ))}
-      </div>
+     <div className="mt-20 flex flex-wrap justify-center gap-7">
+  {projects.map((project, index) => (
+    <ProjectCard key={`project-${index}`} {...project} />
+  ))}
+</div>
     </>
   );
 };
 
-export default SectionWrapper(Works, "");
+export default SectionWrapper(Works, "project");
